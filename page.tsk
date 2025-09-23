@@ -1,0 +1,12 @@
+import { redirect } from "next/navigation";
+
+export default function Home() {
+    // visit localhost:3000
+    redirect("/Account/Signin");
+
+    return (
+        <div>
+         <h1>Kamaz</h1>
+         </div>
+    );
+}
