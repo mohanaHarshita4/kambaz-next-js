@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function DashBoard() {
   const courses = [
-    { id: "1234", title: "CS1234 React JS", img: "/images/reactjs.jpg"},
-    { id: "2345", title: "CS2345 Node", img: "/images/nodejs.jpg"},
-    { id: "3456", title: "CS3456 CSS", img: "/images/css.jpg"},
-    { id: "4567", title: "CS5600 Web Development", img: "/images/1.jpg.png"},
-    { id: "5678", title: "CS5600 Web Development2", img: "/images/2.jpg.png"},
-    { id: "6789", title: "CS5600 Web Development3", img: "/images/3.jpg.png"},
-    { id: "7890", title: "CS5600 Web Development4", img: "/images/4.jpg.png"},
-    { id: "0123", title: "CS5600 Web Development5", img: "/images/5.jpg.png"},
-    { id: "0124", title: "CS5600 Web Development6", img: "/images/6.jpg.png"},
+    { id: "1234", title: "CS1234 React JS", img: "/images/reactjs.jpg" },
+    { id: "2345", title: "CS2345 Node", img: "/images/nodejs.jpg" },
+    { id: "3456", title: "CS3456 CSS", img: "/images/css.jpg" },
+    { id: "4567", title: "CS5600 Web Development", img: "/images/wd1.png" },
+    { id: "5678", title: "CS5600 Web Development2", img: "/images/wd2.png" },
+    { id: "6789", title: "CS5600 Web Development3", img: "/images/wd3.png" },
+    { id: "7890", title: "CS5600 Web Development4", img: "/images/wd4.png" },
+    { id: "0123", title: "CS5600 Web Development5", img: "/images/wd5.png" },
+    { id: "0124", title: "CS5600 Web Development6", img: "/images/wd6.png" },
   ];
   return (
     <div id="wd-dashboard">
