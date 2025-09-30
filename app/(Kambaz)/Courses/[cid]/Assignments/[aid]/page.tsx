@@ -1,158 +1,111 @@
-"use client";
-
-import React from "react";
-
+"use client"
 export default function AssignmentEditor() {
-  return (
-    <div id="wd-assignments-editor">
-      {/* Assignment Name */}
-      <label htmlFor="wd-name">Assignment Name</label>
-      <input id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
+    return (
+        <div id="wd-assignments-editor">
+            <label htmlFor="wd-name"><b>Assignment Name</b></label>
+            <br />
+            <br />
+            <input suppressHydrationWarning={true} id="wd-name" defaultValue="A1 - ENV + HTML" /><br /><br />
+            <textarea suppressHydrationWarning={true} id="wd-description" defaultValue={"The assignment is available online Submit a link to the landing page of"}/>
+            <br />
+            <br />
+            <table>
+                <tbody>
+                <tr>
+                    <td align="right" valign="top">
+                        <label htmlFor="wd-points">Points</label>
+                    </td>
+                    <td>
+                            <input suppressHydrationWarning={true} type = "number" id="wd-points" defaultValue={100} />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">
+                        <label htmlFor="wd-group">Assignment Group</label>
+                    </td>
+                    <td>
+                            <select suppressHydrationWarning={true} id="wd-group" defaultValue='ASSIGNMENTS'>
+                            <option value="ASSIGNMENTS">ASSIGNMENTS</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">
+                        <label htmlFor="wd-display-grade-as">Display Grade as</label>
+                    </td>
+                    <td>
+                            <select suppressHydrationWarning={true} id="wd-display-grade-as" defaultValue='PERCENTAGE'>
+                            <option value="PERCENTAGE">Percentage</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">
+                        <label htmlFor="wd-submission-type">Submission Type</label>
+                    </td>
+                    <td>
+                            <select suppressHydrationWarning={true} id="wd-submission-type" defaultValue='ONLINE'>
+                            <option value="ONLINE">Online</option>
+                            </select>
+                            <br /><br />
 
-      {/* Description */}
-      <label htmlFor="wd-description">Description</label>
-      <textarea id="wd-description" defaultValue={"The assignment is available online. Submit a link to the landing page of your work."}/>
-              <br /><br />
+                        <label>Online Entry Options</label><br />
+                        <input suppressHydrationWarning={true} type="checkbox" id="wd-text-entry" />
+                        <label htmlFor="wd-text-entry">Text Entry</label><br />
 
-      {/* Points */}
-      <table>
-        <tbody>
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-points">Points</label>
-            </td>
-            <td>
-              <input id="wd-points" defaultValue={100} />
-            </td>
-          </tr>
+                        <input suppressHydrationWarning={true} type="checkbox" id="wd-website-url" />
+                        <label htmlFor="wd-website-url">Website URL</label><br />
 
-          {/* Group */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-group">Group</label>
-            </td>
-            <td>
-              <input type="checkbox" id="wd-group" />
-            </td>
-          </tr>
+                        <input suppressHydrationWarning={true} type="checkbox" id="wd-media-recordings" />
+                        <label htmlFor="wd-media-recordings">Media Recordings</label><br />
 
-          {/* Display Grade As */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-display-grade-as">Display Grade As</label>
-            </td>
-            <td>
-              <select id="wd-display-grade-as" defaultValue="Points">
-                <option value="Points">Points</option>
-                <option value="Percentage">Percentage</option>
-              </select>
-            </td>
-          </tr>
+                        <input suppressHydrationWarning={true} type="checkbox" id="wd-student-annotation" />
+                        <label htmlFor="wd-student-annotation">Student Annotation</label><br />
 
-          {/* Submission Type */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-submission-type">Submission Type</label>
-            </td>
-            <td>
-              <select id="wd-submission-type" defaultValue="Online Text">
-                <option value="Online Text">Online Text</option>
-                <option value="File Upload">File Upload</option>
-                <option value="Website URL">Website URL</option>
-                <option value="Media Recordings">Media Recordings</option>
-              </select>
-            </td>
-          </tr>
-
-          {/* Text Entry */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-text-entry">Text Entry</label>
-            </td>
-            <td>
-              <textarea id="wd-text-entry" placeholder="Enter instructions here" />
-            </td>
-          </tr>
-
-          {/* Other Fields */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-website-url">Website URL</label>
-            </td>
-            <td>
-              <input type="url" id="wd-website-url" placeholder="https://example.com" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-media-recordings">Media Recordings</label>
-            </td>
-            <td>
-              <input type="file" id="wd-media-recordings" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-student-annotation">Student Annotation</label>
-            </td>
-            <td>
-              <input type="checkbox" id="wd-student-annotation" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-file-upload">File Upload</label>
-            </td>
-            <td>
-              <input type="file" id="wd-file-upload" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-assign-to">Assign To</label>
-            </td>
-            <td>
-              <select id="wd-assign-to" defaultValue="All Students">
-                <option value="All Students">All Students</option>
-                <option value="Group 1">Group 1</option>
-                <option value="Group 2">Group 2</option>
-              </select>
-            </td>
-          </tr>
-
-          {/* Dates */}
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-due-date">Due Date</label>
-            </td>
-            <td>
-              <input type="date" id="wd-due-date" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-available-from">Available From</label>
-            </td>
-            <td>
-              <input type="date" id="wd-available-from" />
-            </td>
-          </tr>
-
-          <tr>
-            <td align="right" valign="top">
-              <label htmlFor="wd-available-until">Available Until</label>
-            </td>
-            <td>
-              <input type="date" id="wd-available-until" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
+                        <input suppressHydrationWarning={true} type="checkbox" id="wd-file-upload" />
+                        <label htmlFor="wd-file-upload">File Uploads</label><br />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">
+                        <label htmlFor="wd-assign-to">Assign</label>
+                    </td>
+                    <td>
+                        <label htmlFor="wd-assign-to">Assign to</label><br />
+                            <input suppressHydrationWarning={true} id="wd-assign-to" defaultValue={"Everyone"} />
+                            <br /><br />
+                        <label htmlFor="wd-due-date">Due</label><br />
+                            <input suppressHydrationWarning={true} type="date" id="wd-due-date" defaultValue={"2024-04-13"} />
+                            <br /><br />
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <label htmlFor="wd-available-from">Available from</label><br />
+                                            <input suppressHydrationWarning={true} type="date" id="wd-available-from" defaultValue="2024-05-06"/>
+                                    </td>
+                                    <td>
+                                        <label htmlFor="wd-available-until">Until</label><br />
+                                            <input suppressHydrationWarning={true} type="date" id="wd-available-until" defaultValue="2024-05-20"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                        <td colSpan={2}>
+                            <hr />
+                        </td>
+                </tr>
+                <tr>
+                    <td colSpan={2} align="right">
+                            <button suppressHydrationWarning={true} id="wd-cancel">Cancel</button>
+                            <button suppressHydrationWarning={true} id="wd-save">Save</button>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    );
 }

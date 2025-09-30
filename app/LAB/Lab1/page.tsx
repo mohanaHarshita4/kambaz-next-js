@@ -309,8 +309,8 @@ export default function Lab1() {
         
         <h4>Anchor tag</h4>
         Visit my 
-         <a href="https://github.com/bhavishyabondalapati2003-star/kambaz-next-js" id="wd-github">GitHub Repo</a>
+         <a href="https://github.com/mohanaHarshita4/kambaz-next-js" id="wd-github">GitHub Repo</a>
       </div>
     </div>
   );
-}
+} 
