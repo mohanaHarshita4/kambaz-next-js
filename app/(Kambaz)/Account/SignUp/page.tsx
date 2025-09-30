@@ -1,5 +1,5 @@
 import Link from "next/link";
-export default function Signup() {
+export default function SignUp() {
   return (
     <div id="wd-signup-screen">
       <h3>Sign up</h3>
@@ -8,6 +8,6 @@ export default function Signup() {
       <input placeholder="verify password"
              type="password" className="wd-password-verify" /><br/>
       <Link  href="Profile" > Sign up </Link><br />
-      <Link  href="Signin" > Sign in </Link>
+      <Link  href="SignIn" > Sign in </Link>
     </div>
 );}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Dashboard() {
+export default function DashBoard() {
   const courses = [
     { id: "1234", title: "CS1234 React JS", img: "/images/reactjs.jpg"},
     { id: "2345", title: "CS2345 Node", img: "/images/nodejs.jpg"},
