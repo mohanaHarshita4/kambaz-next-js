@@ -2,9 +2,9 @@ import Link from "next/link";
 export default function AccountNavigation() {
     return (
         <div id="wd-account-navigation">
-            <Link href="SignIn"> Signin </Link><br/>
-            <Link href="SignUp"> Signup </Link><br/>
-            <Link href="Profile"> Profile </Link><br/>
+            <Link href="SignIn"> Signin </Link> <br />
+            <Link href="SignUp"> Signup </Link> <br />
+            <Link href="Profile"> Profile </Link> <br />
         </div>
     );
 }

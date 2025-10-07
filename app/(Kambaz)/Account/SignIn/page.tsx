@@ -1,12 +1,12 @@
 import Link from "next/link";
 export default function SignIn() {
- return (
-   <div id="wd-signin-screen">
-      <h3>Sign in</h3>
-      <input className="wd-username" placeholder="username" value="john" /> <br />
-      <input className="wd-password" placeholder="password" type="password" value="1234"/> <br />
-      <Link id="wd-signin-btn" href="/DashBoard"> Sign in </Link> <br />
-      <Link id="wd-signup-link" href="/Account/SignUp"> Sign up </Link>
-    </div>
-
-);}
+    return (
+        <div id="wd-signin-screen">
+            <h3>Sign in</h3>
+            <input suppressHydrationWarning={true} defaultValue="John"  placeholder="username" className="wd-username" /> <br />
+            <input suppressHydrationWarning={true} defaultValue="abc@123" placeholder="password" type="password" className="wd-password" /> <br />
+            <Link href="/DashBoard" id="wd-signin-btn"> Sign in </Link> <br />
+            <Link href="SignUp" id="wd-signup-link"> Sign up </Link>
+        </div>
+    );
+}

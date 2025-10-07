@@ -186,6 +186,23 @@ export default function Lab1() {
         />
       </div>
 
+      <table border={1}>
+  <thead>
+    <tr>
+      <th>Q</th>
+      <th>Date</th>
+      <th>Marks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Q3</td><td>2024-09-01</td><td>95</td></tr>
+    <tr><td>Q4</td><td>2024-09-05</td><td>87</td></tr>
+    <tr><td>Q5</td><td>2024-09-10</td><td>92</td></tr>
+  </tbody>
+</table>
+
+
+
       {/* Forms exercise */}
       <div id="wd-forms">
   <h4>Form Elements</h4>

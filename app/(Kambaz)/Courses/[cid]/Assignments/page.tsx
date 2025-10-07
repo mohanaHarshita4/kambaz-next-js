@@ -1,46 +1,57 @@
+"use client";
+import { Button, FormControl, ListGroup, ListGroupItem } from "react-bootstrap";
+import { FaSearch, FaPlus } from "react-icons/fa";
 import Link from "next/link";
 
 export default function Assignments() {
-    return (
-        <div id="wd-assignments">
-            <input placeholder="Search for Assignments"
-                id="wd-search-assignment" />&nbsp;&nbsp;
-            <button id="wd-add-assignment-group">+ Group</button>&nbsp;&nbsp;
-            <button id="wd-add-assignment">+ Assignment</button>
-            <h3 id="wd-assignments-title">
-                ASSIGNMENTS 40% of Total <button>+</button> </h3>
-            <ul id="wd-assignment-list">
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/123"
-                        className="wd-assignment-link" >
-                        A1 - ENV + HTML
-                    </Link>
-                    <br />
-                    Multiple Modules | <b>Not available until</b> May 6 at 12:00am | 
-                    <br />
-                    <b>Due</b> May 13 at 11:59pm | 100pts
-                </li>
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/123"
-                        className="wd-assignment-link" >
-                        A2 - CSS + BOOTSTRAP
-                    </Link>
-                    <br />
-                    Multiple Modules | <b>Not available until</b> May 13 at 12:00am |
-                    <br />
-                    <b>Due</b> May 20 at 11:59pm | 100pts
-                </li>
-                <li className="wd-assignment-list-item">
-                    <Link href="/Courses/1234/Assignments/123"
-                        className="wd-assignment-link" >
-                        A3 - JAVASCRIPT + REACT
-                    </Link>
-                    <br />
-                    Multiple Modules | <b>Not available until</b> May 20 at 12:00am |
-                    <br />
-                    <b>Due</b> May 27 at 11:59pm | 100pts
-                </li>
-            </ul>
+  return (
+    <div id="wd-assignments" className="p-3">
+      <h2>Assignments</h2>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        {/* Search bar */}
+        <div className="d-flex align-items-center w-50">
+          <FaSearch className="me-2 text-secondary" />
+          <FormControl placeholder="Search for Assignments" />
         </div>
-    );
+
+        {/* Buttons on right */}
+        <div>
+          <Button variant="secondary" className="me-2">
+            <FaPlus className="me-1" /> Group
+          </Button>
+          <Button variant="danger">
+            <FaPlus className="me-1" /> Assignment
+          </Button>
+        </div>
+      </div>
+
+      {/* Assignment List */}
+      <ListGroup className="rounded-0">
+        <ListGroupItem className="border-start border-success">
+          <Link href="/Courses/1234/Assignments/1" className="text-decoration-none">
+            <h5>A1 - React Basics</h5>
+            <p className="text-secondary">
+              Due Oct 15 | 100 pts | Available Oct 1
+            </p>
+          </Link>
+        </ListGroupItem>
+        <ListGroupItem className="border-start border-success">
+          <Link href="/Courses/1234/Assignments/2" className="text-decoration-none">
+            <h5>A2 - CSS & Bootstrap</h5>
+            <p className="text-secondary">
+              Due Oct 22 | 100 pts | Available Oct 10
+            </p>
+          </Link>
+        </ListGroupItem>
+        <ListGroupItem className="border-start border-success">
+          <Link href="/Courses/1234/Assignments/3" className="text-decoration-none">
+            <h5>A3 - JavaScript</h5>
+            <p className="text-secondary">
+              Due Oct 29 | 100 pts | Available Oct 15
+            </p>
+          </Link>
+        </ListGroupItem>
+      </ListGroup>
+    </div>
+  );
 }
