@@ -19,12 +19,13 @@ import BootstrapLists from "./BootstrapList";
 import BootstrapForms from "./BootstrapForms";
 import BootstrapNavigation from "./BootstrapNavigation";
 import BootstrapCards from "./BootstrapCards";
+import ReactIcons from "./ReactIcons";
 
-export default function Lab2() { 
+export default function Labs2() { 
   return ( 
     <Container>
-      <div id="wd-lab2"> 
-        <h2>Lab 2 - Cascading Style Sheets</h2> 
+      <div id="wd-Labs2"> 
+        <h2>Labs 2 - Cascading Style Sheets</h2> 
         <h3>Styling with the STYLE attribute</h3>
      
         <p> 
@@ -78,7 +79,7 @@ export default function Lab2() {
           </div>
         </div>
 
-        {/* Lab components */}
+        {/* Labs components */}
         <div>
           {/* Foreground Colors */}
           <ForegroundColors />
@@ -168,6 +169,11 @@ export default function Lab2() {
       <div>
     {/* Bootstrap Cards */}
       <BootstrapCards />
+     </div>
+
+     <div>
+    {/* React Icons */}
+      <ReactIcons />
      </div>
 
 

@@ -8,16 +8,16 @@ export default function BootstrapNavigation() {
       <h2>Tabs</h2>
       <Nav variant="tabs">
         <NavItem>
-          <NavLink href="#/LAB/Lab2/Active">Active</NavLink>
+          <NavLink href="#/Labs/Labs2/Active">Active</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#/LAB/Lab2/Link1">Link 1</NavLink>
+          <NavLink href="#/Labs/Labs2/Link1">Link 1</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#/LAB/Lab2/Link2">Link 2</NavLink>
+          <NavLink href="#/Labs/Labs2/Link2">Link 2</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href="#/LAB/Lab2/Disabled" disabled>
+          <NavLink href="#/Labs/Labs2/Disabled" disabled>
             Disabled
           </NavLink>
         </NavItem>

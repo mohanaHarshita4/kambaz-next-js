@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
 export default function Kambaz() {
-  redirect("/Account/SignIn");
+  redirect("/Account/Signin");
 
 } 

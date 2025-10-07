@@ -8,6 +8,7 @@ import InputGroupText from "react-bootstrap/InputGroupText";
 export default function BootstrapForms() {
   return (
     <div className="my-4">
+      {/* ✅ Basic form controls */}
       <div id="wd-css-styling-forms">
         <h2>Forms</h2>
         <Form.Label>Email address</Form.Label>
@@ -16,6 +17,7 @@ export default function BootstrapForms() {
         <Form.Control as="textarea" rows={3} />
       </div>
 
+      {/* ✅ Dropdown */}
       <div id="wd-css-styling-dropdowns" className="mt-4">
         <h3>Dropdowns</h3>
         <Form.Select>
@@ -26,6 +28,7 @@ export default function BootstrapForms() {
         </Form.Select>
       </div>
 
+      {/* ✅ Switches */}
       <div id="wd-css-styling-switches" className="mt-4">
         <h3>Switches</h3>
         <Form.Check type="switch" defaultChecked={false} label="Unchecked switch" />
@@ -34,12 +37,14 @@ export default function BootstrapForms() {
         <Form.Check type="switch" defaultChecked={true} label="Disabled checked" disabled />
       </div>
 
+      {/* ✅ Range */}
       <div id="wd-css-styling-range-and-sliders" className="mt-4">
         <h3>Range</h3>
         <Form.Label>Example range</Form.Label>
         <Form.Range min="0" max="5" step="0.5" />
       </div>
 
+      {/* ✅ Input Addons */}
       <div id="wd-css-styling-addons" className="mt-4">
         <h3>Addons</h3>
         <InputGroup className="mb-3">
@@ -70,6 +75,8 @@ export default function BootstrapForms() {
           </Col>
         </Row>
       </div>
+
+      {/* ✅ Responsive Forms 2 */}
       <div id="wd-css-responsive-forms-2" className="mt-4">
         <h3>Responsive forms 2</h3>
         <Form>

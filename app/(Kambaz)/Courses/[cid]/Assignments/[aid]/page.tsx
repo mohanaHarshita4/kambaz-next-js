@@ -1,62 +1,46 @@
 "use client";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-import { use } from "react";
-import { Form, Button } from "react-bootstrap";
-
-export default function EditAssignment({
-  params,
-}: {
-  params: Promise<{ aid: string }>;
-}) {
-  // unwrap params safely (Next.js 15+ style)
-  const { aid } = use(params);
-
+export default function AssignmentEditor() {
   return (
-    <div id="wd-edit-assignment" className="p-4" style={{ maxWidth: "800px" }}>
-      <h2 className="mb-4">Edit Assignment</h2>
+    <div className="container mt-4">
+      <h2>Assignment Editor</h2>
+      <hr />
 
       <Form>
         {/* Assignment Name */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="assignmentName">
           <Form.Label>Assignment Name</Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={`A${aid}`}
-            placeholder="Enter assignment name"
-          />
+          <Form.Control type="text" placeholder="Enter assignment name" />
         </Form.Group>
 
         {/* Description */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="assignmentDescription">
           <Form.Label>Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={4}
-            placeholder="Enter assignment description"
-            defaultValue="The assignment is available online..."
-          />
+          <Form.Control as="textarea" rows={4} placeholder="Enter assignment description" />
         </Form.Group>
 
         {/* Points */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="assignmentPoints">
           <Form.Label>Points</Form.Label>
-          <Form.Control type="number" defaultValue="100" />
+          <Form.Control type="number" placeholder="100" />
         </Form.Group>
 
         {/* Assignment Group */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="assignmentGroup">
           <Form.Label>Assignment Group</Form.Label>
-          <Form.Select defaultValue="ASSIGNMENTS">
-            <option>ASSIGNMENTS</option>
-            <option>QUIZZES</option>
-            <option>PROJECTS</option>
+          <Form.Select>
+            <option>Assignments</option>
+            <option>Quizzes</option>
+            <option>Exams</option>
           </Form.Select>
         </Form.Group>
 
-        {/* Display Grade */}
-        <Form.Group className="mb-3">
-          <Form.Label>Display Grade as</Form.Label>
-          <Form.Select defaultValue="Percentage">
+        {/* Display Grade As */}
+        <Form.Group className="mb-3" controlId="displayGrade">
+          <Form.Label>Display Grade As</Form.Label>
+          <Form.Select>
             <option>Percentage</option>
             <option>Points</option>
             <option>Complete/Incomplete</option>
@@ -64,48 +48,43 @@ export default function EditAssignment({
         </Form.Group>
 
         {/* Submission Type */}
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="submissionType">
           <Form.Label>Submission Type</Form.Label>
-          <Form.Select defaultValue="Online">
+          <Form.Select>
             <option>Online</option>
             <option>On Paper</option>
             <option>No Submission</option>
           </Form.Select>
-          <div className="ms-3 mt-2">
-            <Form.Check type="checkbox" label="Text Entry" />
-            <Form.Check type="checkbox" label="Website URL" />
-            <Form.Check type="checkbox" label="Media Recordings" />
-            <Form.Check type="checkbox" label="Student Annotation" />
-            <Form.Check type="checkbox" label="File Uploads" />
-          </div>
         </Form.Group>
 
-        {/* Assign To */}
-        <Form.Group className="mb-3">
-          <Form.Label>Assign To</Form.Label>
-          <Form.Control type="text" defaultValue="Everyone" />
-        </Form.Group>
-
-        {/* Dates */}
-        <Form.Group className="mb-3">
+        {/* Available Dates */}
+        <Form.Group className="mb-3" controlId="dueDate">
           <Form.Label>Due Date</Form.Label>
-          <Form.Control type="datetime-local" defaultValue="2025-05-13T23:59" />
+          <Form.Control type="date" />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="availableFrom">
           <Form.Label>Available From</Form.Label>
-          <Form.Control type="datetime-local" defaultValue="2025-05-06T00:00" />
+          <Form.Control type="date" />
         </Form.Group>
 
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-3" controlId="untilDate">
           <Form.Label>Until</Form.Label>
-          <Form.Control type="datetime-local" defaultValue="2025-05-20T23:59" />
+          <Form.Control type="date" />
         </Form.Group>
 
-        {/* Save button */}
-        <Button variant="danger" className="mt-3">
-          Save
-        </Button>
+        {/* Options (checkboxes) */}
+        <Form.Group className="mb-3">
+          <Form.Check type="checkbox" label="This is a group assignment" />
+          <Form.Check type="checkbox" label="Require peer reviews" />
+          <Form.Check type="checkbox" label="Enable plagiarism check" />
+        </Form.Group>
+
+        {/* Save & Cancel */}
+        <div className="d-flex gap-2">
+          <Button variant="primary" type="submit">Save</Button>
+          <Button variant="secondary" type="button">Cancel</Button>
+        </div>
       </Form>
     </div>
   );

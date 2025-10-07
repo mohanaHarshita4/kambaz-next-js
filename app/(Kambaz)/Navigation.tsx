@@ -27,7 +27,7 @@ export default function KambazNavigation() {
         href="https://www.northeastern.edu/"
         id="wd-neu-link"
       >
-        <img src="/images/NEU.svg" width="75px" alt="Northeastern University" />
+        <img src="/images/neu.png" width="75px" alt="Northeastern University" />
       </ListGroupItem>
 
       {/* Account */}
@@ -52,17 +52,17 @@ export default function KambazNavigation() {
       {/* Dashboard */}
       <ListGroupItem
         className={`border-0 text-center ${
-          isActive("/DashBoard") ? "bg-white" : "bg-black"
+          isActive("/Dashboard") ? "bg-white" : "bg-black"
         }`}
       >
         <Link
-          href="/DashBoard"
+          href="/Dashboard"
           className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/DashBoard") ? "text-danger" : "text-white"
+            isActive("/Dashboard") ? "text-danger" : "text-white"
           }`}
         >
           <AiOutlineDashboard
-            className={`fs-1 ${isActive("/DashBoard") ? "text-danger" : "text-white"}`}
+            className={`fs-1 ${isActive("/Dashboard") ? "text-danger" : "text-white"}`}
           />
           Dashboard
         </Link>
@@ -128,17 +128,17 @@ export default function KambazNavigation() {
       {/* Labs */}
       <ListGroupItem
         className={`border-0 text-center ${
-          isActive("/LAB") ? "bg-white" : "bg-black"
+          isActive("/Labs") ? "bg-white" : "bg-black"
         }`}
       >
         <Link
-          href="/LAB"
+          href="/Labs"
           className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/LAB") ? "text-danger" : "text-white"
+            isActive("/Labs") ? "text-danger" : "text-white"
           }`}
         >
           <FaFlask
-            className={`fs-1 ${isActive("/LAB") ? "text-danger" : "text-white"}`}
+            className={`fs-1 ${isActive("/Labs") ? "text-danger" : "text-white"}`}
           />
           Labs
         </Link>

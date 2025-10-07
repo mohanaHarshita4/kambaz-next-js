@@ -1,10 +1,10 @@
-import Image from "next/image";
+import images from "next/images";
 
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
+        <images
           className="dark:invert"
           src="/next.svg"
           alt="Next.js logo"
@@ -32,7 +32,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
+            <images
               className="dark:invert"
               src="/vercel.svg"
               alt="Vercel logomark"
@@ -58,7 +58,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
+          <images
             aria-hidden
             src="/file.svg"
             alt="File icon"
@@ -73,7 +73,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
+          <images
             aria-hidden
             src="/window.svg"
             alt="Window icon"
@@ -88,7 +88,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
+          <images
             aria-hidden
             src="/globe.svg"
             alt="Globe icon"

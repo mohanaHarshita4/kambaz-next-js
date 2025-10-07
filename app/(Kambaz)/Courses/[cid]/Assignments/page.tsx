@@ -31,7 +31,7 @@ export default function Assignments() {
           <Link href="/Courses/1234/Assignments/1" className="text-decoration-none">
             <h5>A1 - React Basics</h5>
             <p className="text-secondary">
-              Due Oct 15 | 100 pts | Available Oct 1
+              Due Oct 15 | 100 pts | AvaiLabsle Oct 1
             </p>
           </Link>
         </ListGroupItem>
@@ -39,7 +39,7 @@ export default function Assignments() {
           <Link href="/Courses/1234/Assignments/2" className="text-decoration-none">
             <h5>A2 - CSS & Bootstrap</h5>
             <p className="text-secondary">
-              Due Oct 22 | 100 pts | Available Oct 10
+              Due Oct 22 | 100 pts | AvaiLabsle Oct 10
             </p>
           </Link>
         </ListGroupItem>
@@ -47,7 +47,7 @@ export default function Assignments() {
           <Link href="/Courses/1234/Assignments/3" className="text-decoration-none">
             <h5>A3 - JavaScript</h5>
             <p className="text-secondary">
-              Due Oct 29 | 100 pts | Available Oct 15
+              Due Oct 29 | 100 pts | AvaiLabsle Oct 15
             </p>
           </Link>
         </ListGroupItem>

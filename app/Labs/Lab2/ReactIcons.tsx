@@ -3,11 +3,11 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { FaBookBible } from "react-icons/fa6";
 import { VscAccount } from "react-icons/vsc";
 
-export default function ReactIconsSampler() {
+export default function ReactIcons() {
   return (
     <div id="wd-react-icons-sampler" className="mb-4">
       <h3>React Icons Sampler</h3>
-      <div className="d-flex gap-3 align-items-center">
+      <div className="d-flex gap-3">
         <VscAccount className="fs-3" />
         <AiOutlineDashboard className="fs-3" />
         <FaBookBible className="fs-3" />

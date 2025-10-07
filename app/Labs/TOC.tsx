@@ -7,16 +7,16 @@ export default function TOC() {
       <div className="me-5">
         <ul>
           <li>
-            <Link href="/LAB" id="wd-lab-home-link">Home</Link>
+            <Link href="/Labs" id="wd-Labs-home-link">Home</Link>
           </li>
           <li>
-            <Link href="/LAB/Lab1" id="wd-lab1-link">Lab 1</Link>
+            <Link href="/Labs/Labs1" id="wd-Labs1-link">Labs 1</Link>
           </li>
           <li>
-            <Link href="/LAB/Lab2" id="wd-lab2-link">Lab 2</Link>
+            <Link href="/Labs/Labs2" id="wd-Labs2-link">Labs 2</Link>
           </li>
           <li>
-            <Link href="/LAB/Lab3" id="wd-lab3-link">Lab 3</Link>
+            <Link href="/Labs/Labs3" id="wd-Labs3-link">Labs 3</Link>
           </li>
           <li>
             <Link href="/Kambaz" id="wd-kambaz-link">Kambaz</Link>
@@ -29,13 +29,13 @@ export default function TOC() {
         <h1><b>Labs</b></h1>
         <ul>
           <li>
-            <Link href="/LAB/Lab1">Lab 1: HTML Examples</Link>
+            <Link href="/Labs/Labs1">Labs 1: HTML Examples</Link>
           </li>
           <li>
-            <Link href="/LAB/Lab2">Lab 2: CSS Basics</Link>
+            <Link href="/Labs/Labs2">Labs 2: CSS Basics</Link>
           </li>
           <li>
-            <Link href="/LAB/Lab3">Lab 3: JavaScript Fundamentals</Link>
+            <Link href="/Labs/Labs3">Labs 3: JavaScript Fundamentals</Link>
           </li>
           <li>
             <Link href="/Kambaz">Kambaz</Link>

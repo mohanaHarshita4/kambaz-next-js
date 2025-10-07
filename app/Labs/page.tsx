@@ -8,10 +8,10 @@ export default function LabsPage() {
 
       <h3>Labs</h3>
       <ul>
-        <li><a href="/LAB/Lab1">Lab 1: HTML Examples</a></li>
-        <li><a href="/LAB/Lab2">Lab 2: CSS Basics</a></li>
-        <li><a href="/LAB/Lab3">Lab 3: JavaScript Fundamentals</a></li>
-        <li><a href="/LAB/Kambaz">Kambaz</a></li>
+        <li><a href="/Labs/Labs1">Labs 1: HTML Examples</a></li>
+        <li><a href="/Labs/Labs2">Labs 2: CSS Basics</a></li>
+        <li><a href="/Labs/Labs3">Labs 3: JavaScript Fundamentals</a></li>
+        <li><a href="/Labs/Kambaz">Kambaz</a></li>
       </ul>
     </div>
   );

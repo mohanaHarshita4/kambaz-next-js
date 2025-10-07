@@ -1,6 +1,6 @@
 export default function ScreenSizeLabel() {
   return (
-    <div id="wd-screen-size-label">
+    <div id="wd-screen-size-Label">
       <div className="d-block d-sm-none">XS - Extra Small (&lt;576px)</div>
       <div className="d-none d-sm-block d-md-none">S - Small (≥576px)</div>
       <div className="d-none d-md-block d-lg-none">M - Medium (≥768px)</div>
