@@ -7,9 +7,9 @@ export default function LabsNavigation() {
       <h4>Labs</h4>
       <ul className="list-unstyled">
         <li><Link href="/Labs">Student Info</Link></li>
-        <li><Link href="/Labs/Labs1">Labs 1</Link></li>
-        <li><Link href="/Labs/Labs2">Labs 2</Link></li>
-        <li><Link href="/Labs/Labs3">Labs 3</Link></li>
+        <li><Link href="/Labs/Lab1">Lab 1</Link></li>
+        <li><Link href="/Labs/Lab2">Lab 2</Link></li>
+        <li><Link href="/Labs/Lab3">Lab 3</Link></li>
         <li><Link href="/Labs/Kambaz">Kambaz</Link></li>
         <li><a href="https://github.com/mohanaHarshita4" target="_blank">My GitHub</a></li>
       </ul>

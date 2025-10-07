@@ -141,6 +141,11 @@ export default function Labs2() {
         </div>
 
         <div>
+    {/* React Icons */}
+      <ReactIcons />
+     </div>
+
+        <div>
           {/* Bootstrap Grid */}
           <BootstrapGrids />
         </div>
@@ -171,10 +176,7 @@ export default function Labs2() {
       <BootstrapCards />
      </div>
 
-     <div>
-    {/* React Icons */}
-      <ReactIcons />
-     </div>
+     
 
 
          <div>
