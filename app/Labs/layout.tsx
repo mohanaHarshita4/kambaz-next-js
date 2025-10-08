@@ -5,54 +5,44 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function LabsLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname() || "";
+  const pathname = usePathname();
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
-
-  const Item = ({
-    href,
-    children,
-  }: {
-    href: string;
-    children: React.ReactNode;
-  }) => (
-    <li className="mb-1">
-      <Link
-        href={href}
-        className={`d-block px-2 py-1 rounded text-decoration-none ${
-          isActive(href) ? "fw-bold bg-light text-primary" : "text-body"
-        }`}
-      >
-        {children}
-      </Link>
-    </li>
-  );
+  const labLinks = [
+    { href: "/Labs", label: "Labs" },
+    { href: "/Labs/Lab1", label: "Lab 1" },
+    { href: "/Labs/Lab2", label: "Lab 2" },
+    { href: "/Labs/Lab3", label: "Lab 3" },
+    { href: "/", label: "Home" },
+  ];
 
   return (
     <div className="d-flex">
-      {/* Main Kambaz sidebar (black) */}
+      {/* Global Kanbas sidebar */}
       <Navigation />
 
       {/* Labs sub-sidebar + content */}
       <div className="d-flex flex-fill">
-        {/* Labs sub-sidebar (fixed height, scrollable if needed) */}
         <aside
-          className="border-end bg-body-tertiary"
-          style={{ width: 220 }}
+          className="p-3 border-end"
+          style={{ minWidth: 180, backgroundColor: "#f8f9fa" }}
         >
-          <div className="position-sticky top-0 vh-100 p-3 overflow-auto">
-            <h5 className="mb-3">Labs</h5>
-            <ul className="list-unstyled m-0">
-              <Item href="/Labs">Home</Item>
-              <Item href="/Labs/Lab1">Lab 1</Item>
-              <Item href="/Labs/Lab2">Lab 2</Item>
-              <Item href="/Labs/Lab3">Lab 3</Item>
-            </ul>
-          </div>
+          <ul className="list-unstyled">
+            {labLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={`d-block py-2 px-2 ${
+                    pathname === link.href ? "fw-bold text-danger" : "text-dark"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </aside>
 
-        {/* Main content */}
+        {/* Main labs content */}
         <main className="flex-fill p-4">{children}</main>
       </div>
     </div>
