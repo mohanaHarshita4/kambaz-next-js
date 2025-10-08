@@ -1,167 +1,80 @@
 "use client";
 
-import { AiOutlineDashboard } from "react-icons/ai";
-import { IoCalendarOutline } from "react-icons/io5";
-import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
-import { FaInbox, FaRegCircleUser, FaFlask } from "react-icons/fa6";
+import { useState } from "react";
+import { FaComputer } from "react-icons/fa6";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { MdAccountCircle, MdInbox } from "react-icons/md";
+import { IoBookSharp } from "react-icons/io5";
+import { RiDashboard3Line } from "react-icons/ri";
+import { SlCalender } from "react-icons/sl";
 
 export default function KambazNavigation() {
-  const pathname = usePathname();
+  const [activeId, setActiveId] = useState("wd-account-link");
 
-  const isActive = (href: string) => pathname.startsWith(href);
+  const links = [
+    { href: "/Account", id: "wd-account-link", label: "Account", icon: <MdAccountCircle /> },
+    { href: "/Dashboard", id: "wd-dashboard-link", label: "Dashboard", icon: <RiDashboard3Line /> },
+    { href: "/Courses/6789/Home", id: "wd-courses-link", label: "Courses", icon: <IoBookSharp /> },
+    { href: "/Calendar", id: "wd-calendar-link", label: "Calendar", icon: <SlCalender /> },
+    { href: "/Inbox", id: "wd-inbox-link", label: "Inbox", icon: <MdInbox /> },
+    { href: "/Labs", id: "wd-labs-link", label: "Labs", icon: <FaComputer /> },
+  ];
 
   return (
     <ListGroup
-      className="rounded-0 position-fixed top-0 bottom-0 bg-black z-2"
+      className="rounded-0 position-fixed bottom-0 top-0 d-none d-md-block bg-black z-2"
       style={{ width: 120 }}
-      id="wd-kambaz-navigation"
-    >
-      {/* Logo */}
-      <ListGroupItem
-        className="bg-black border-0 text-center"
-        as="a"
-        target="_blank"
-        href="https://www.northeastern.edu/"
-        id="wd-neu-link"
-      >
+     
+
+      id="wd-kambaz-navigation">
+      <ListGroupItem className="bg-black border-0 text-center" as="a" target="_blank"
+        href="https://www.northeastern.edu/" id="wd-neu-link">
         <img src="/images/neu.png" width="75px" alt="Northeastern University" />
       </ListGroupItem>
 
-      {/* Account */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Account") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Account"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Account") ? "text-danger" : "text-white"
-          }`}
-        >
-          <FaRegCircleUser
-            className={`fs-1 ${isActive("/Account") ? "text-danger" : "text-white"}`}
-          />
-          Account
-        </Link>
-      </ListGroupItem>
+      {links.map((link) => {
+        const isActive = activeId === link.id;
+        const isAccount = link.id === "wd-account-link";
 
-      {/* Dashboard */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Dashboard") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Dashboard"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Dashboard") ? "text-danger" : "text-white"
-          }`}
-        >
-          <AiOutlineDashboard
-            className={`fs-1 ${isActive("/Dashboard") ? "text-danger" : "text-white"}`}
-          />
-          Dashboard
-        </Link>
-      </ListGroupItem>
+        const bgColor = isActive ? "bg-white" : "bg-black";
+        
+        // Text is white when inactive, red when active.
+        const linkTextColor = isActive ? "text-danger" : "text-white";
 
-      {/* Calendar */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Calendar") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Calendar"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Calendar") ? "text-danger" : "text-white"
-          }`}
-        >
-          <IoCalendarOutline
-            className={`fs-1 ${isActive("/Calendar") ? "text-danger" : "text-white"}`}
-          />
-          Calendar
-        </Link>
-      </ListGroupItem>
+        // Icon color logic:
+        let iconColor;
+        if (isAccount) {
+          // Account icon: red when active, white when inactive.
+          iconColor = isActive ? "text-danger" : "text-white";
+        } else {
+          // All other icons: always red (based on the previous request's logic).
+          iconColor = "text-danger";
+        }
 
-      {/* Inbox */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Inbox") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Inbox"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Inbox") ? "text-danger" : "text-white"
-          }`}
-        >
-          <FaInbox
-            className={`fs-1 ${isActive("/Inbox") ? "text-danger" : "text-white"}`}
-          />
-          Inbox
-        </Link>
-      </ListGroupItem>
-
-      {/* Courses */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Courses") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Courses/6789/Home"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Courses") ? "text-danger" : "text-white"
-          }`}
-        >
-          <LiaBookSolid
-            className={`fs-1 ${isActive("/Courses") ? "text-danger" : "text-white"}`}
-          />
-          Courses
-        </Link>
-      </ListGroupItem>
-
-      {/* Labs */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Labs") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Labs"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Labs") ? "text-danger" : "text-white"
-          }`}
-        >
-          <FaFlask
-            className={`fs-1 ${isActive("/Labs") ? "text-danger" : "text-white"}`}
-          />
-          Labs
-        </Link>
-      </ListGroupItem>
-
-      {/* Settings */}
-      <ListGroupItem
-        className={`border-0 text-center ${
-          isActive("/Settings") ? "bg-white" : "bg-black"
-        }`}
-      >
-        <Link
-          href="/Settings"
-          className={`d-flex flex-column align-items-center text-decoration-none ${
-            isActive("/Settings") ? "text-danger" : "text-white"
-          }`}
-        >
-          <LiaCogSolid
-            className={`fs-1 ${isActive("/Settings") ? "text-danger" : "text-white"}`}
-          />
-          Settings
-        </Link>
-      </ListGroupItem>
+        return (
+          <ListGroupItem
+            key={link.id}
+            className={`border-0 text-center ${bgColor}`}
+            onClick={() => setActiveId(link.id)}
+          >
+            <Link
+              href={link.href}
+              id={link.id}
+              className={`text-decoration-none d-block`}
+            >
+              {/* Apply icon color */}
+              <div className={`fs-1 ${iconColor}`}>
+                  {link.icon}
+              </div>
+              {/* Apply text color */}
+              <div className={linkTextColor}>
+                {link.label}
+              </div>
+            </Link>
+          </ListGroupItem>
+        );
+      })}
     </ListGroup>
   );
 }
