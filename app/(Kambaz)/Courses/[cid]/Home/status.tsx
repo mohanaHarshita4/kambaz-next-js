@@ -1,16 +1,16 @@
-import { MdDoNotDisturbAlt } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
+import { MdDoNotDisturbAlt, MdAnalytics, MdOutlineBarChart } from "react-icons/md";
+import { FaCheckCircle, FaBullhorn, FaHome, FaStream } from "react-icons/fa";
 import { BiImport } from "react-icons/bi";
 import { LiaFileImportSolid } from "react-icons/lia";
-import { FaBell, FaHome, FaStream, FaBullhorn, FaChartLine, FaChartBar } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 export default function CourseStatus() {
   return (
     <div id="wd-course-status" style={{ width: "350px" }}>
       <h2>Course Status</h2>
 
-      {/* Publish / Unpublish row */}
+      {/* Publish / Unpublish */}
       <div className="d-flex">
         <div className="w-50 pe-1">
           <Button variant="secondary" size="lg" className="w-100 text-nowrap">
@@ -26,7 +26,11 @@ export default function CourseStatus() {
 
       <br />
 
-      {/* Additional buttons */}
+      {/* Other Course Actions */}
+      <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
+        <IoNotificationsOutline className="me-2 fs-5" /> View Course Notifications
+      </Button>
+
       <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
         <BiImport className="me-2 fs-5" /> Import Existing Content
       </Button>
@@ -48,15 +52,11 @@ export default function CourseStatus() {
       </Button>
 
       <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
-        <FaChartLine className="me-2 fs-5" /> New Analytics
+        <MdAnalytics className="me-2 fs-5" /> New Analytics
       </Button>
 
       <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
-        <FaChartBar className="me-2 fs-5" /> View Course Statistics
-      </Button>
-
-      <Button variant="secondary" size="lg" className="w-100 mt-1 text-start">
-        <FaBell className="me-2 fs-5" /> View Course Notifications
+        <MdOutlineBarChart className="me-2 fs-5" /> View Course Statistics
       </Button>
     </div>
   );

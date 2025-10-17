@@ -8,17 +8,14 @@ import { MdAccountCircle, MdInbox } from "react-icons/md";
 import { IoBookSharp } from "react-icons/io5";
 import { RiDashboard3Line } from "react-icons/ri";
 import { SlCalender } from "react-icons/sl";
-import { usePathname } from "next/navigation";
-
 
 export default function KambazNavigation() {
   const [activeId, setActiveId] = useState("wd-account-link");
-   const pathname = usePathname();
 
   const links = [
     { href: "/Account", id: "wd-account-link", label: "Account", icon: <MdAccountCircle /> },
     { href: "/Dashboard", id: "wd-dashboard-link", label: "Dashboard", icon: <RiDashboard3Line /> },
-    { href: "/Courses/6789/Home", id: "wd-courses-link", label: "Courses", icon: <IoBookSharp /> },
+    { href: "/Dashboard", id: "wd-courses-link", label: "Courses", icon: <IoBookSharp /> },
     { href: "/Calendar", id: "wd-calendar-link", label: "Calendar", icon: <SlCalender /> },
     { href: "/Inbox", id: "wd-inbox-link", label: "Inbox", icon: <MdInbox /> },
     { href: "/Labs", id: "wd-labs-link", label: "Labs", icon: <FaComputer /> },
