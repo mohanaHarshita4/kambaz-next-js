@@ -1,7 +1,9 @@
 import Link from "next/link";
-
+import TOC from "./TOC";
 export default function Labs() {
   return (
+    <div>
+      <TOC />
     <div id="wd-labs" className="p-4">
       <div className="mb-6">
         <h2>Student Info</h2>
@@ -42,6 +44,7 @@ export default function Labs() {
           </Link>
         </li>
       </ul>
+    </div>
     </div>
   );
 }

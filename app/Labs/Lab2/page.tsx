@@ -1,4 +1,5 @@
 import "./index.css";
+import TOC from "../TOC";
 import Container from "react-bootstrap/Container";
 import ForegroundColors from "./ForegroundColors";
 import BackgroundColors from "./BackgroundColors";
@@ -23,6 +24,8 @@ import ReactIcons from "./ReactIcons";
 
 export default function Labs2() { 
   return ( 
+    <div>
+      <TOC />
     <Container>
       <div id="wd-Labs2"> 
         <h2>Labs 2 - Cascading Style Sheets</h2> 
@@ -175,14 +178,12 @@ export default function Labs2() {
     {/* Bootstrap Cards */}
       <BootstrapCards />
      </div>
-
-     
-
-
          <div>
           {/* Screen Size Label */}
           <ScreenSizeLabel />
          </div>
          </Container>
+             </div>
+
   );
 }

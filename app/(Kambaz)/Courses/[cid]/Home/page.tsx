@@ -1,19 +1,9 @@
-import Modules from "../Modules/page";
+"use client";
 
-console.log("Modules is:", Modules);
-import CourseStatus from "./status";
-export default function Home() {
-    return (
-        <div id="wd-home">
-            <div className="d-flex" id="wd-home">
-    <div className="flex-fill me-3">
-      <Modules />
+export default function CourseHome() {
+  return (
+    <div className="container py-3">
+      <h2 className="text-danger">Welcome to the Course Home Page</h2>
     </div>
- <div className="d-none d-lg-block">
-      <CourseStatus />
-    </div>
-  </div>
-
-        </div>
-    );
+  );
 }

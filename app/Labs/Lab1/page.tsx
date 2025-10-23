@@ -1,9 +1,13 @@
 "use client";
+import TOC from "../TOC";
+
 
 import Image from "next/image";
 
 export default function Lab1() {
   return (
+    <div>
+    <TOC />
     <div id="wd-lab1">
       <h2>Lab 1</h2>
       <h3>HTML Examples</h3>
@@ -308,6 +312,7 @@ export default function Lab1() {
         <h4>Anchor tag</h4>
         Visit my 
          <a href="https://github.com/mohanaHarshita4/kambaz-next-js" id="wd-github">GitHub Repo</a>
+      </div>
       </div>
     </div>
   );

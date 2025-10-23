@@ -1,120 +1,93 @@
-'use client';
+"use client";
 
 import { useParams } from "next/navigation";
+import Link from "next/link";
+import * as db from "../../../../Database";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
 
 export default function AssignmentEditor() {
-  const { aid } = useParams();
+  const { cid, aid } = useParams();
+
+  const assignment = (db.assignments as any[]).find(
+    (a: any) => a.course === cid && a.id === aid
+  );
+
+  if (!assignment) {
+    return (
+      <div className="p-4 text-danger">
+        <h5>⚠️ Assignment not found.</h5>
+        <Link href={`/Courses/${cid}/Assignments`} passHref>
+          <Button variant="outline-secondary" className="mt-3">
+            ← Back to Assignments
+          </Button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <Card className="p-4 m-4 shadow-sm">
-      <h4 className="mb-4 fw-semibold text-dark">
-        {aid ? `A${aid}: ENV + HTML` : "New Assignment"}
-      </h4>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h4 className="fw-semibold text-dark mb-0">
+          {assignment.title || "Assignment Details"}
+        </h4>
+        <Link href={`/Courses/${cid}/Assignments`} passHref>
+          <Button variant="outline-secondary" size="sm">
+            ← Back to Assignments
+          </Button>
+        </Link>
+      </div>
 
       <Form>
-        {/* Assignment Name */}
         <Form.Group className="mb-3">
           <Form.Label>Assignment Name</Form.Label>
-          <Form.Control defaultValue="A1 - ENV + HTML" />
+          <Form.Control defaultValue={assignment.title} />
         </Form.Group>
 
-        {/* Description */}
         <Form.Group className="mb-3">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
             rows={4}
-            defaultValue="The assignment is available online. Submit a link to the landing page of your work."
+            defaultValue={`This assignment is worth ${assignment.points} points.\nAvailable: ${assignment.available}\nDue: ${assignment.due}.`}
           />
         </Form.Group>
 
-        {/* Points */}
         <Form.Group className="mb-3">
           <Form.Label>Points</Form.Label>
-          <Form.Control type="number" defaultValue={100} />
+          <Form.Control type="number" defaultValue={assignment.points} />
         </Form.Group>
 
-        {/* Display Grade As */}
-        <Form.Group className="mb-3">
-          <Form.Label>Display Grade As</Form.Label>
-          <Form.Select defaultValue="Points">
-            <option value="Points">Points</option>
-            <option value="Percentage">Percentage</option>
-          </Form.Select>
-        </Form.Group>
-
-        {/* Submission Type */}
-        <Form.Group className="mb-3">
-          <Form.Label>Submission Type</Form.Label>
-          <Form.Select defaultValue="Website URL">
-            <option>Text Entry</option>
-            <option>File Upload</option>
-            <option>Website URL</option>
-            <option>Media Recordings</option>
-            <option>Student Annotation</option>
-          </Form.Select>
-        </Form.Group>
-
-        {/* Optional Fields */}
-        <Form.Group className="mb-3">
-          <Form.Label>Text Entry</Form.Label>
-          <Form.Control as="textarea" placeholder="Enter instructions here" />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Website URL</Form.Label>
-          <Form.Control type="url" placeholder="https://example.com" />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Label>Media Recordings</Form.Label>
-          <Form.Control type="file" />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Check label="Student Annotation" />
-          <Form.Check label="File Upload" />
-        </Form.Group>
-
-        {/* Assign To */}
-        <Form.Group className="mb-3">
-          <Form.Label>Assign To</Form.Label>
-          <Form.Select defaultValue="Everyone">
-            <option>Everyone</option>
-            <option>All Students</option>
-            <option>Group 1</option>
-            <option>Group 2</option>
-          </Form.Select>
-        </Form.Group>
-
-        {/* Dates */}
         <Row>
           <Col md={4}>
             <Form.Group className="mb-3">
-              <Form.Label>Due Date</Form.Label>
-              <Form.Control type="date" />
-            </Form.Group>
-          </Col>
-          <Col md={4}>
-            <Form.Group className="mb-3">
               <Form.Label>Available From</Form.Label>
-              <Form.Control type="date" />
+              <Form.Control type="text" defaultValue={assignment.available} />
             </Form.Group>
           </Col>
           <Col md={4}>
             <Form.Group className="mb-3">
-              <Form.Label>Available Until</Form.Label>
-              <Form.Control type="date" />
+              <Form.Label>Due Date</Form.Label>
+              <Form.Control type="text" defaultValue={assignment.due} />
+            </Form.Group>
+          </Col>
+          <Col md={4}>
+            <Form.Group className="mb-3">
+              <Form.Label>Display Grade As</Form.Label>
+              <Form.Select defaultValue="Points">
+                <option value="Points">Points</option>
+                <option value="Percentage">Percentage</option>
+              </Form.Select>
             </Form.Group>
           </Col>
         </Row>
 
-        {/* Buttons */}
-        <div className="d-flex justify-content-end">
-          <Button variant="secondary" className="me-2">
-            Cancel
-          </Button>
+        <div className="d-flex justify-content-end mt-3">
+          <Link href={`/Courses/${cid}/Assignments`} passHref>
+            <Button variant="secondary" className="me-2">
+              Cancel
+            </Button>
+          </Link>
           <Button variant="danger">Save</Button>
         </div>
       </Form>
