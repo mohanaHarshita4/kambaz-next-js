@@ -2,12 +2,14 @@
 
 import { ReactNode } from "react";
 import KambazNavigation from "./Navigation";
+import Providers from "./Providers";
 import "./styles.css";
 
 export default function KambazLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
+    <Providers>
     <div id="wd-kambaz" className="d-flex">
       {/* Sidebar */}
       <div style={{ width: "0px" }}>
@@ -19,5 +21,6 @@ export default function KambazLayout({
         {children}
       </div>
     </div>
+    </Providers>
   );
 }

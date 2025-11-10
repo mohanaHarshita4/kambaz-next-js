@@ -1,18 +1,19 @@
 "use client";
 
-import { use } from "react";
 import Link from "next/link";
-import { useState } from "react";
-import * as db from "../../../Database";
+import { useParams, useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../../store";
+import { deleteAssignment } from "./reducer";
 import {
   FaSearch,
   FaPlus,
-  FaCheckCircle,
   FaEllipsisV,
   FaAngleDown,
   FaClock,
   FaCalendarAlt,
   FaStar,
+  FaTrash,
 } from "react-icons/fa";
 import { MdOutlineAssignment } from "react-icons/md";
 import {
@@ -22,11 +23,9 @@ import {
   ListGroup,
   Row,
   Col,
+  Modal,
 } from "react-bootstrap";
-
-interface AssignmentsProps {
-  params: Promise<{ cid: string }>;
-}
+import { useState } from "react";
 
 function GripDots() {
   return (
@@ -54,17 +53,32 @@ function GripDots() {
   );
 }
 
-export default function Assignments({ params }: AssignmentsProps) {
-  const { cid } = use(params);
+export default function Assignments() {
+  const { cid } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  const assignments = useSelector(
+    (state: RootState) => state.assignments.assignments
+  ).filter((a) => a.course === cid);
+
   const [search, setSearch] = useState("");
+  const [showDelete, setShowDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  const assignments = (db.assignments as any[]).filter(
-    (a: any) => a.course === cid
-  );
-
-  const filtered = assignments.filter((a: any) =>
+  const filtered = assignments.filter((a) =>
     a.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  const handleDelete = (id: string) => {
+    setDeleteId(id);
+    setShowDelete(true);
+  };
+
+  const confirmDelete = () => {
+    if (deleteId) dispatch(deleteAssignment(deleteId));
+    setShowDelete(false);
+  };
 
   return (
     <div className="p-4 bg-light">
@@ -94,7 +108,10 @@ export default function Assignments({ params }: AssignmentsProps) {
           <Button variant="light" className="border me-2 text-dark">
             <FaPlus /> Group
           </Button>
-          <Button variant="danger">
+          <Button
+            variant="danger"
+            onClick={() => router.push(`/Courses/${cid}/Assignments/new`)}
+          >
             <FaPlus /> Assignment
           </Button>
         </Col>
@@ -110,13 +127,12 @@ export default function Assignments({ params }: AssignmentsProps) {
           <span className="border rounded-pill px-3 py-1 small text-muted me-3 bg-light">
             40% of Total
           </span>
-          <FaPlus className="text-secondary me-3" />
           <FaEllipsisV className="text-secondary" />
         </div>
       </div>
 
       <ListGroup className="border border-top-0">
-        {filtered.map(({ id, title, available, due, points }: any) => (
+        {filtered.map(({ id, title, available, due, points }) => (
           <ListGroup.Item
             key={id}
             className="d-flex justify-content-between align-items-center ps-3 pe-2 py-3 rounded-0 bg-white"
@@ -141,7 +157,7 @@ export default function Assignments({ params }: AssignmentsProps) {
                 <div className="text-muted small mt-1">
                   Multiple Modules &nbsp;|&nbsp;
                   <FaClock className="me-1 text-secondary" />
-                  <strong>Not available until</strong> {available} &nbsp;|&nbsp;
+                  <strong>Available</strong> {available} &nbsp;|&nbsp;
                   <FaCalendarAlt className="me-1 text-secondary" />
                   <strong>Due</strong> {due} &nbsp;|&nbsp;
                   <FaStar className="me-1 text-secondary" /> {points} pts
@@ -150,12 +166,32 @@ export default function Assignments({ params }: AssignmentsProps) {
             </div>
 
             <div className="d-flex align-items-center">
-              <FaCheckCircle className="text-success me-3" size={18} />
+              <FaTrash
+                className="text-danger me-3"
+                size={18}
+                role="button"
+                onClick={() => handleDelete(id)}
+              />
               <FaEllipsisV className="text-secondary" />
             </div>
           </ListGroup.Item>
         ))}
       </ListGroup>
+
+      <Modal show={showDelete} onHide={() => setShowDelete(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to remove this assignment?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDelete(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

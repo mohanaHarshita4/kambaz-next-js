@@ -33,13 +33,23 @@ import Highlight from "./Highlight";
 import PathParameters from "./PathParameters";
 import AddPathParameters from "./add/[a]/[b]/page";
 import TodoList from "./todos/TodoList";
+import { useSelector } from "react-redux"; 
+import { ListGroup } from "react-bootstrap";
+
 
 export default function Labs3() {
+   const { todos } = useSelector((state: any) => state.todosReducer);
    console.log("Hello World!");
   return (
     <div>
       <TOC/>
       <h2>Labs 3</h2>
+      <ListGroup>
+        {todos.map((todo: any) => (
+          <ListGroup.Item key={todo.id}>{todo.title}</ListGroup.Item>
+        ))}
+      </ListGroup>
+      <hr /> 
       <VariablesAndConstants/> 
       <VariableTypes/>
       <BooleanVariables/>
