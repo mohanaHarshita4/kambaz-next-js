@@ -31,19 +31,6 @@ export default function AssignmentEditor() {
     }
   );
 
-  if (!assignment) {
-    return (
-      <div className="p-4 text-danger">
-        <h5>Assignment not found.</h5>
-        <Link href={`/Courses/${cid}/Assignments`} passHref>
-          <Button variant="outline-secondary" className="mt-3">
-            ← Back to Assignments
-          </Button>
-        </Link>
-      </div>
-    );
-  }
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -60,7 +47,7 @@ export default function AssignmentEditor() {
     <Card className="p-4 m-4 shadow-sm">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h4 className="fw-semibold text-dark mb-0">
-          {form.title || "Assignment Details"}
+          {form.title || "New Assignment"}
         </h4>
         <Link href={`/Courses/${cid}/Assignments`} passHref>
           <Button variant="outline-secondary" size="sm">

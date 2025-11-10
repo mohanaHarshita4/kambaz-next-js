@@ -2,19 +2,22 @@
 
 import { use } from "react";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState, AppDispatch } from "../../../store";
+import {
+  addAssignment,
+  deleteAssignment,
+} from "./reducer";
 import { useState } from "react";
-import * as db from "../../../Database";
 import {
   FaSearch,
   FaPlus,
-  FaCheckCircle,
-  FaEllipsisV,
-  FaAngleDown,
+  FaTrash,
+  FaEdit,
   FaClock,
   FaCalendarAlt,
   FaStar,
 } from "react-icons/fa";
-import { MdOutlineAssignment } from "react-icons/md";
 import {
   InputGroup,
   FormControl,
@@ -23,48 +26,40 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
+import { MdOutlineAssignment } from "react-icons/md";
 
 interface AssignmentsProps {
   params: Promise<{ cid: string }>;
 }
 
-function GripDots() {
-  return (
-    <div
-      className="d-flex flex-column align-items-center justify-content-center me-3"
-      style={{ width: "14px", height: "18px" }}
-    >
-      {Array.from({ length: 4 }).map((_, row) => (
-        <div
-          key={row}
-          className="d-flex justify-content-between w-100 mb-1"
-          style={{ lineHeight: 0 }}
-        >
-          <div
-            className="rounded-circle"
-            style={{ width: "4px", height: "4px", backgroundColor: "#222" }}
-          ></div>
-          <div
-            className="rounded-circle"
-            style={{ width: "4px", height: "4px", backgroundColor: "#222" }}
-          ></div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function Assignments({ params }: AssignmentsProps) {
   const { cid } = use(params);
+  const dispatch = useDispatch<AppDispatch>();
+  const assignments = useSelector(
+    (state: RootState) => state.assignments.assignments
+  ).filter((a) => a.course === cid);
+
   const [search, setSearch] = useState("");
 
-  // fallback to all assignments if course not matched
-  const allAssignments = db.assignments as any[];
-  const assignments = allAssignments.filter(
-    (a: any) => a.course === cid || a.course === "1234"
-  );
+  const handleAddAssignment = () => {
+    const newAssignment = {
+      id: uuidv4(),
+      course: cid,
+      title: "New Assignment",
+      description: "New Assignment Description",
+      available: "Enter Date",
+      due: "Enter Date",
+      points: 100,
+    };
+    dispatch(addAssignment(newAssignment));
+  };
 
-  const filtered = assignments.filter((a: any) =>
+  const handleDelete = (id: string) => {
+    dispatch(deleteAssignment(id));
+  };
+
+  const filtered = assignments.filter((a) =>
     a.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -93,35 +88,17 @@ export default function Assignments({ params }: AssignmentsProps) {
           </InputGroup>
         </Col>
         <Col md={6} className="text-end">
-          <Button variant="light" className="border me-2 text-dark">
-            <FaPlus /> Group
-          </Button>
-          <Button variant="danger">
+          <Button variant="danger" onClick={handleAddAssignment}>
             <FaPlus /> Assignment
           </Button>
         </Col>
       </Row>
 
-      <div className="d-flex align-items-center justify-content-between border px-3 py-2 bg-white">
-        <div className="d-flex align-items-center fw-semibold">
-          <GripDots />
-          <FaAngleDown className="me-2" />
-          ASSIGNMENTS
-        </div>
-        <div className="d-flex align-items-center">
-          <span className="border rounded-pill px-3 py-1 small text-muted me-3 bg-light">
-            40% of Total
-          </span>
-          <FaPlus className="text-secondary me-3" />
-          <FaEllipsisV className="text-secondary" />
-        </div>
-      </div>
-
-      <ListGroup className="border border-top-0">
-        {filtered.map(({ id, title, available, due, points }: any) => (
+      <ListGroup className="border">
+        {filtered.map(({ id, title, available, due, points }) => (
           <ListGroup.Item
             key={id}
-            className="d-flex justify-content-between align-items-center ps-3 pe-2 py-3 rounded-0 bg-white"
+            className="d-flex justify-content-between align-items-center ps-3 pe-2 py-3 bg-white"
             style={{
               borderLeft: "4px solid green",
               borderRight: "none",
@@ -130,7 +107,6 @@ export default function Assignments({ params }: AssignmentsProps) {
             }}
           >
             <div className="d-flex align-items-start w-100">
-              <GripDots />
               <MdOutlineAssignment className="me-3 fs-4 text-success" />
               <div className="flex-grow-1">
                 <Link
@@ -139,21 +115,29 @@ export default function Assignments({ params }: AssignmentsProps) {
                 >
                   {title}
                 </Link>
-
                 <div className="text-muted small mt-1">
-                  Multiple Modules &nbsp;|&nbsp;
                   <FaClock className="me-1 text-secondary" />
-                  <strong>Not available until</strong> {available} &nbsp;|&nbsp;
+                  Available: {available} &nbsp;|&nbsp;
                   <FaCalendarAlt className="me-1 text-secondary" />
-                  <strong>Due</strong> {due} &nbsp;|&nbsp;
+                  Due: {due} &nbsp;|&nbsp;
                   <FaStar className="me-1 text-secondary" /> {points} pts
                 </div>
               </div>
             </div>
 
             <div className="d-flex align-items-center">
-              <FaCheckCircle className="text-success me-3" size={18} />
-              <FaEllipsisV className="text-secondary" />
+              <Link href={`/Courses/${cid}/Assignments/${id}`} passHref>
+                <Button variant="outline-primary" size="sm" className="me-2">
+                  <FaEdit />
+                </Button>
+              </Link>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleDelete(id)}
+              >
+                <FaTrash />
+              </Button>
             </div>
           </ListGroup.Item>
         ))}
