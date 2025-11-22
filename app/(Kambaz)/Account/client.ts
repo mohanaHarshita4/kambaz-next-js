@@ -39,7 +39,6 @@ export const findCoursesForUser = async (userId: string) => {
   return response.data;
 };
 
-// Add this function - it calls /current/courses endpoint
 export const findMyCourses = async () => {
   const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
   return data;
