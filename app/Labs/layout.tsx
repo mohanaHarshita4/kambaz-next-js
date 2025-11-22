@@ -15,6 +15,8 @@ export default function LabsLayout({ children }: { children: React.ReactNode }) 
     { href: "/Labs/Lab2", label: "Lab 2" },
     { href: "/Labs/Lab3", label: "Lab 3" },
     { href: "/Labs/Lab4", label: "Lab 4" },
+    { href: "/Labs/Lab5", label: "Lab 5" },
+
     { href: "/", label: "Home" },
   ];
 

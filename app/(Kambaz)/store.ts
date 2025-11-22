@@ -1,11 +1,18 @@
 "use client";
 
 import { configureStore } from "@reduxjs/toolkit";
-import assignmentsReducer from "./Courses/[cid]/Assignments/reducer";
+import assignmentsReducer from "../(Kambaz)/Courses/[cid]/Assignments/reducer";
+import accountReducer from "../(Kambaz)/Account/reducer";
+import modulesReducer from "../(Kambaz)/Courses/[cid]/Modules/reducer";
+import coursesReducer from "../(Kambaz)/Courses/reducer";
 
 export const store = configureStore({
   reducer: {
     assignments: assignmentsReducer,
+    accountReducer: accountReducer,
+    assignmentsReducer: assignmentsReducer,
+    modulesReducer: modulesReducer,
+    coursesReducer: coursesReducer,
   },
 });
 

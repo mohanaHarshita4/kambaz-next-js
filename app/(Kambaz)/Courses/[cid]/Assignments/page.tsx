@@ -1,146 +1,169 @@
 "use client";
-
-import { use } from "react";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../../store";
+import { useEffect } from "react";
+import { RootState } from "../../../store";
+import { setAssignments, deleteAssignment } from "./reducer";
+import * as client from "./client";
 import {
-  addAssignment,
-  deleteAssignment,
-} from "./reducer";
-import { useState } from "react";
-import {
-  FaSearch,
-  FaPlus,
-  FaTrash,
-  FaEdit,
-  FaClock,
-  FaCalendarAlt,
-  FaStar,
-} from "react-icons/fa";
-import {
-  InputGroup,
-  FormControl,
   Button,
+  FormControl,
   ListGroup,
-  Row,
-  Col,
+  ListGroupItem,
+  Badge,
 } from "react-bootstrap";
-import { v4 as uuidv4 } from "uuid";
-import { MdOutlineAssignment } from "react-icons/md";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { BsGripVertical } from "react-icons/bs";
+import { IoEllipsisVertical } from "react-icons/io5";
+import GreenCheckmark from "../Modules/GreenCheckmark";
+import { FaSearch } from "react-icons/fa";
 
-interface AssignmentsProps {
-  params: Promise<{ cid: string }>;
-}
+export default function Assignments() {
+  const { cid } = useParams();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-export default function Assignments({ params }: AssignmentsProps) {
-  const { cid } = use(params);
-  const dispatch = useDispatch<AppDispatch>();
-  const assignments = useSelector(
-    (state: RootState) => state.assignments.assignments
-  ).filter((a) => a.course === cid);
-
-  const [search, setSearch] = useState("");
-
-  const handleAddAssignment = () => {
-    const newAssignment = {
-      id: uuidv4(),
-      course: cid,
-      title: "New Assignment",
-      description: "New Assignment Description",
-      available: "Enter Date",
-      due: "Enter Date",
-      points: 100,
-    };
-    dispatch(addAssignment(newAssignment));
-  };
-
-  const handleDelete = (id: string) => {
-    dispatch(deleteAssignment(id));
-  };
-
-  const filtered = assignments.filter((a) =>
-    a.title.toLowerCase().includes(search.toLowerCase())
+  const { assignments } = useSelector(
+    (state: RootState) => state.assignmentsReducer
+  );
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
   );
 
+  // Fetch assignments from backend on mount
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      try {
+        const assignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+      } catch (error) {
+        console.error("Error fetching assignments:", error);
+      }
+    };
+    fetchAssignments();
+  }, [cid, dispatch]);
+
+  const filteredAssignments = assignments.filter(
+    (assignment) => assignment.course === cid
+  );
+
+  const isFaculty = currentUser?.role === "FACULTY";
+
+  const handleDelete = async (assignmentId: string) => {
+    if (window.confirm("Are you sure you want to remove this assignment?")) {
+      try {
+        await client.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+      } catch (error) {
+        console.error("Error deleting assignment:", error);
+        alert("Failed to delete assignment");
+      }
+    }
+  };
+
   return (
-    <div className="p-4 bg-light">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="fw-semibold text-dark mb-0">Assignments</h4>
-        <Link href={`/Courses/${cid}/Dashboard`} passHref>
-          <Button variant="outline-secondary" size="sm">
-            ← Back to Dashboard
-          </Button>
-        </Link>
+    <div id="wd-assignments" className="mt-2">
+      <div className="clearfix mb-3">
+        <div className="float-start position-relative" style={{ maxWidth: 420 }}>
+          <FaSearch
+            className="position-absolute text-muted"
+            style={{
+              top: "50%",
+              left: "14px",
+              transform: "translateY(-50%)",
+              pointerEvents: "none",
+            }}
+          />
+          <FormControl
+            size="lg"
+            type="text"
+            placeholder="Search..."
+            id="wd-search-assignment"
+            className="ps-5 rounded-1"
+            style={{ borderColor: "#ccc", boxShadow: "none" }}
+          />
+        </div>
+
+        {isFaculty && (
+          <div className="float-end">
+            <Button variant="secondary" className="me-2 text-nowrap">
+              <FaPlus className="me-2" /> Group
+            </Button>
+            <Button
+              variant="danger"
+              className="text-nowrap"
+              id="wd-add-assignment"
+              onClick={() => router.push(`/Courses/${cid}/Assignments/new`)}
+            >
+              <FaPlus className="me-2" /> Assignment
+            </Button>
+          </div>
+        )}
       </div>
 
-      <Row className="align-items-center mb-3">
-        <Col md={6}>
-          <InputGroup>
-            <InputGroup.Text>
-              <FaSearch />
-            </InputGroup.Text>
-            <FormControl
-              placeholder="Search for Assignments"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </InputGroup>
-        </Col>
-        <Col md={6} className="text-end">
-          <Button variant="danger" onClick={handleAddAssignment}>
-            <FaPlus /> Assignment
-          </Button>
-        </Col>
-      </Row>
+      <div className="d-flex align-items-center justify-content-between border rounded px-3 py-2 bg-white">
+        <div className="d-flex align-items-center">
+          <BsGripVertical className="me-2 text-muted" />
+          <h5 className="m-0">ASSIGNMENTS</h5>
+        </div>
+        <div className="d-flex align-items-center gap-2">
+          <Badge bg="light" text="dark" pill>
+            40% of Total
+          </Badge>
+          {isFaculty && (
+            <>
+              <Button size="sm" variant="light" className="px-2">
+                +
+              </Button>
+              <Button size="sm" variant="light" className="px-2">
+                <IoEllipsisVertical />
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
 
-      <ListGroup className="border">
-        {filtered.map(({ id, title, available, due, points }) => (
-          <ListGroup.Item
-            key={id}
-            className="d-flex justify-content-between align-items-center ps-3 pe-2 py-3 bg-white"
-            style={{
-              borderLeft: "4px solid green",
-              borderRight: "none",
-              borderTop: "none",
-              borderBottom: "1px solid #dee2e6",
-            }}
-          >
-            <div className="d-flex align-items-start w-100">
-              <MdOutlineAssignment className="me-3 fs-4 text-success" />
-              <div className="flex-grow-1">
+      <ListGroup className="rounded-0 mt-2">
+        {filteredAssignments.length === 0 ? (
+          <ListGroupItem className="text-muted text-center">
+            No assignments found for this course.
+          </ListGroupItem>
+        ) : (
+          filteredAssignments.map((assignment) => (
+            <ListGroupItem
+              key={assignment._id}
+              className="p-3 ps-1 wd-assignment-row d-flex align-items-start"
+            >
+              <BsGripVertical className="me-2 fs-5 text-muted flex-shrink-0" />
+              <div className="flex-fill">
                 <Link
-                  href={`/Courses/${cid}/Assignments/${id}`}
-                  className="fw-bold text-decoration-none text-dark d-block"
+                  href={`/Courses/${cid}/Assignments/${assignment._id}`}
+                  className="fw-semibold text-decoration-none"
                 >
-                  {title}
+                  {assignment.title}
                 </Link>
-                <div className="text-muted small mt-1">
-                  <FaClock className="me-1 text-secondary" />
-                  Available: {available} &nbsp;|&nbsp;
-                  <FaCalendarAlt className="me-1 text-secondary" />
-                  Due: {due} &nbsp;|&nbsp;
-                  <FaStar className="me-1 text-secondary" /> {points} pts
+                <div className="small mt-1 text-muted">
+                  <span className="text-success me-3">Multiple Modules</span>
+                  <span>Not available until May 6 • 12:00am</span>
+                  <span className="mx-2">|</span>
+                  <span>Due May 13 • 11:59pm</span>
+                  <span className="mx-2">|</span>
+                  <span>100 pts</span>
                 </div>
               </div>
-            </div>
-
-            <div className="d-flex align-items-center">
-              <Link href={`/Courses/${cid}/Assignments/${id}`} passHref>
-                <Button variant="outline-primary" size="sm" className="me-2">
-                  <FaEdit />
-                </Button>
-              </Link>
-              <Button
-                variant="outline-danger"
-                size="sm"
-                onClick={() => handleDelete(id)}
-              >
-                <FaTrash />
-              </Button>
-            </div>
-          </ListGroup.Item>
-        ))}
+              <GreenCheckmark />
+              {isFaculty && (
+                <FaTrash
+                  className="text-danger ms-2 fs-5"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDelete(assignment._id)}
+                />
+              )}
+              <IoEllipsisVertical className="fs-4 flex-shrink-0 ms-2" />
+            </ListGroupItem>
+          ))
+        )}
       </ListGroup>
     </div>
   );

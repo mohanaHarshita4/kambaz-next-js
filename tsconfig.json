@@ -19,6 +19,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/Labs/Lab4/ReduxExamples"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/Labs/Lab4/ReduxExamples", "app/(Kambaz)/Database/index.js"],
   "exclude": ["node_modules"]
 }

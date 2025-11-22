@@ -16,23 +16,28 @@ interface ModulesControlsProps {
   moduleName: string;
   setModuleName: (title: string) => void;
   addModule: () => void;
+  isFaculty: boolean;
 }
 
 export default function ModulesControls({
   moduleName,
   setModuleName,
   addModule,
+  isFaculty,
 }: ModulesControlsProps) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  if (!isFaculty) {
+    return null;
+  }
 
   return (
     <div
       id="wd-modules-controls"
       className="d-flex flex-wrap justify-content-end align-items-center gap-2 mb-3"
     >
-      {/* Left-side utility buttons */}
       <Button variant="secondary" size="lg" id="wd-collapse-all">
         Collapse All
       </Button>
@@ -41,7 +46,6 @@ export default function ModulesControls({
         View Progress
       </Button>
 
-      {/* Publish All dropdown */}
       <Dropdown>
         <DropdownToggle variant="secondary" size="lg" id="wd-publish-all-btn">
           <GreenCheckmark /> Publish All
@@ -65,7 +69,6 @@ export default function ModulesControls({
         </DropdownMenu>
       </Dropdown>
 
-      {/* +Module button */}
       <Button
         variant="danger"
         size="lg"
@@ -76,7 +79,6 @@ export default function ModulesControls({
         Module
       </Button>
 
-      {/* Modal Dialog for Adding Module */}
       <ModuleEditor
         show={show}
         handleClose={handleClose}
