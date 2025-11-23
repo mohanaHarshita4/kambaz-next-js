@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:4000";
 
 export default function WorkingWithObjects() {
   const [assignment, setAssignment] = useState({

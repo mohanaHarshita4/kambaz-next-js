@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FormControl } from "react-bootstrap";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:4000";
 const API = `${HTTP_SERVER}/lab5/todos`;
 
 export default function WorkingWithArrays() {

@@ -1,6 +1,6 @@
 import axios from "axios";
+const HTTP_SERVER = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:4000";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER!;
 const ASSIGNMENT_API = process.env.NEXT_PUBLIC_ASSIGNMENT_API!;
 const TODOS_API = process.env.NEXT_PUBLIC_TODOS_API!;
 

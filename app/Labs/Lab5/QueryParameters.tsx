@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import FormControl from "react-bootstrap/FormControl";
 
-const HTTP_SERVER = process.env.NEXT_PUBLIC_HTTP_SERVER;
+const HTTP_SERVER = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:4000";
 
 export default function QueryParameters() {
   const [a, setA] = useState("34");
