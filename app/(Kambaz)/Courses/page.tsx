@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import * as coursesClient from "./client";
+import * as userClient from "@/app/(Kambaz)/Account/client";
+import * as coursesClient from "@/app/(Kambaz)/Courses/client";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
@@ -23,7 +24,8 @@ export default function CoursesPage() {
   };
 
   const addCourse = async () => {
-    const newCourse = await coursesClient.createCourse(course);
+    const newCourse = await userClient.createCourse(course)
+
     setCourses([...courses, newCourse]);
 
     // reset form
