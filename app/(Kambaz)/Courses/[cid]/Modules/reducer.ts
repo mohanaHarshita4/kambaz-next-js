@@ -1,40 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Module } from "../../../types";
-
-interface ModulesState {
-  modules: Module[];
-}
-
-const initialState: ModulesState = {
-  modules: [],
-};
+import { createSlice } from "@reduxjs/toolkit";
 
 const modulesSlice = createSlice({
   name: "modules",
-  initialState,
+  initialState: [] as any[],
   reducers: {
-    setModules: (state, action: PayloadAction<Module[]>) => {
-      state.modules = action.payload;
+    setModules: (state, { payload }) => payload,
+    addModule: (state, { payload }) => {
+      state.push(payload);
     },
-    addModule: (state, { payload: module }: PayloadAction<Module>) => {
-      state.modules = [...state.modules, module];
-    },
-    deleteModule: (state, { payload: moduleId }: PayloadAction<string>) => {
-      state.modules = state.modules.filter((m) => m._id !== moduleId);
-    },
-    updateModule: (state, { payload: module }: PayloadAction<Module>) => {
-      state.modules = state.modules.map((m) =>
-        m._id === module._id ? module : m
-      );
-    },
-    editModule: (state, { payload: moduleId }: PayloadAction<string>) => {
-      state.modules = state.modules.map((m) =>
-        m._id === moduleId ? { ...m, editing: true } : m
-      );
-    },
+    updateModule: (state, { payload }) =>
+      state.map((m) => (m._id === payload._id ? payload : m)),
+    deleteModule: (state, { payload }) =>
+      state.filter((m) => m._id !== payload),
   },
 });
 
-export const { addModule, deleteModule, updateModule, editModule, setModules } =
+export const { setModules, addModule, updateModule, deleteModule } =
   modulesSlice.actions;
+
 export default modulesSlice.reducer;

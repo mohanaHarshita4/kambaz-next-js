@@ -1,13 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
-const HTTP_SERVER = import.meta.env.VITE_HTTP_SERVER || "http://localhost:4000";
-const MODULES_API = `${HTTP_SERVER}/api/modules`;
+
+const axiosWithCredentials = axios.create({ withCredentials: true });
+
+const HTTP_SERVER =
+  process.env.NEXT_PUBLIC_HTTP_SERVER || "http://localhost:4000";
+
+export const MODULE_SERVER = `${HTTP_SERVER}/api/modules`;
+
+// -----------------------------
+// MODULE CRUD
+// -----------------------------
 
 export const deleteModule = async (moduleId: string) => {
-  const response = await axios.delete(`${MODULES_API}/${moduleId}`);
-  return response.data;
+  const res = await axiosWithCredentials.delete(
+    `${MODULE_SERVER}/${moduleId}`
+  );
+  return res.data;
 };
 
 export const updateModule = async (module: any) => {
-  const { data } = await axios.put(`${MODULES_API}/${module._id}`, module);
-  return data;
+  const res = await axiosWithCredentials.put(
+    `${MODULE_SERVER}/${module._id}`,
+    module
+  );
+  return res.data;
 };

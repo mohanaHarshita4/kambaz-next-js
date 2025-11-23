@@ -1,130 +1,90 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { ListGroup, ListGroupItem, FormControl } from "react-bootstrap";
-import { BsGripVertical } from "react-icons/bs";
-import ModulesControls from "./ModulesControls";
-import LessonControlButtons from "./LessonControlButtons";
-import ModuleControlButtons from "./ModuleControlButtons";
-import { RootState } from "../../../store";
-import {
-  addModule,
-  editModule,
-  updateModule,
-  deleteModule,
-  setModules,
-} from "./reducer";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import * as coursesClient from "../../client";
-import * as modulesClient from "./client";
-import { Module } from "../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import * as coursesClient from "@/app/(Kambaz)/Courses/client";
+import { addModule, deleteModule, setModules, updateModule } from "./reducer";
 
 export default function Modules() {
   const { cid } = useParams();
-  const { modules } = useSelector((state: RootState) => state.modulesReducer);
-  const { currentUser } = useSelector((state: RootState) => state.accountReducer);
-  const isFaculty = currentUser?.role === "FACULTY";
   const dispatch = useDispatch();
+
+  const modules = useSelector((state: any) => state.modulesReducer || []);
   const [moduleName, setModuleName] = useState("");
 
-  const fetchModules = async () => {
-    const modules = await coursesClient.findModulesForCourse(cid as string);
-    dispatch(setModules(modules));
+  const loadModules = async () => {
+    const list = await coursesClient.findModulesForCourse(cid as string);
+    dispatch(setModules(list || []));
   };
 
   useEffect(() => {
-    fetchModules();
+    loadModules();
   }, [cid]);
 
-  const createModuleForCourse = async () => {
-  if (!cid || !moduleName.trim()) return;
-  const newModule = { name: moduleName, course: cid };
+  const create = async () => {
+    if (!moduleName.trim()) return;
 
-const module = await coursesClient.createModuleForCourse(
-  cid as string,
-  newModule
-);
+    const module = await coursesClient.createModuleForCourse(cid as string, {
+      name: moduleName,
+    });
 
-  dispatch(addModule(module));
-  setModuleName("");
-};
-
-
-  const removeModule = async (moduleId: string) => {
-    await modulesClient.deleteModule(moduleId);
-    dispatch(deleteModule(moduleId));
+    dispatch(addModule(module));
+    setModuleName("");
   };
 
-  const saveModule = async (module: Module) => {
-    await modulesClient.updateModule(module);
-    dispatch(updateModule(module));
+  const remove = async (mid: string) => {
+    await coursesClient.deleteModule(mid);
+    dispatch(deleteModule(mid));
   };
+
+  const save = async (module: any) => {
+    const updated = await coursesClient.updateModule(module);
+    dispatch(updateModule(updated));
+  };
+
+  const safeModules = Array.isArray(modules) ? modules : [];
 
   return (
-    <div>
-      <ModulesControls
-        setModuleName={setModuleName}
-        moduleName={moduleName}
-        isFaculty={isFaculty}
-        addModule={createModuleForCourse}
+    <div className="p-4">
+      <h2>Modules</h2>
+
+      <input
+        className="form-control mb-2"
+        placeholder="New module"
+        value={moduleName}
+        onChange={(e) => setModuleName(e.target.value)}
       />
 
-      <br />
-      <br />
-      <br />
-      <br />
+      <button className="btn btn-primary mb-3" onClick={create}>
+        + Add Module
+      </button>
 
-      <ListGroup id="wd-modules" className="rounded-0">
-        {modules.map((module: Module) => (
-          <ListGroupItem
-            key={module._id}
-            className="wd-module p-0 mb-5 fs-5 border-gray"
-          >
-            <div className="wd-title p-3 ps-2 bg-secondary">
-              <BsGripVertical className="me-2 fs-3" />
+      <ul className="list-group">
+        {safeModules.map((m: any) => (
+          <li key={m._id} className="list-group-item">
+            <div className="d-flex justify-content-between">
+              <strong>{m.name}</strong>
 
-              {(!module.editing || !isFaculty) && module.name}
+              <span>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => save({ ...m, name: m.name + " (Updated)" })}
+                >
+                  Edit
+                </button>
 
-              {isFaculty && module.editing && (
-                <FormControl
-                  className="w-50 d-inline-block"
-                  onChange={(e) =>
-                    dispatch(updateModule({ ...module, name: e.target.value }))
-                  }
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      saveModule({ ...module, editing: false });
-                    }
-                  }}
-                  defaultValue={module.name}
-                />
-              )}
-
-              {isFaculty && (
-                <ModuleControlButtons
-                  moduleId={module._id}
-                  deleteModule={(moduleId) => removeModule(moduleId)}
-                  editModule={(moduleId) => dispatch(editModule(moduleId))}
-                />
-              )}
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => remove(m._id)}
+                >
+                  Delete
+                </button>
+              </span>
             </div>
-
-            {module.lessons && (
-              <ListGroup className="wd-lessons rounded-0">
-                {module.lessons.map((lesson, index) => (
-                  <ListGroupItem
-                    key={lesson._id || index}
-                    className="wd-lesson p-3 ps-1"
-                  >
-                    <BsGripVertical className="me-2 fs-3" /> {lesson.name}{" "}
-                    <LessonControlButtons />
-                  </ListGroupItem>
-                ))}
-              </ListGroup>
-            )}
-          </ListGroupItem>
+          </li>
         ))}
-      </ListGroup>
+      </ul>
     </div>
   );
 }
