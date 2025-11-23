@@ -24,5 +24,5 @@ export default function Kambaz() {
     }
   }, [currentUser]);
 
-  return <Dashboard courses={courses} />;
+  return <Dashboard  />;
 }
